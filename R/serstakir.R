@@ -6,8 +6,7 @@ serstakir <- function(yyyy)
   fridagur <- seq(as.Date(paste0(yyyy,"-08-01")),length=7)
   fridagur <- fridagur[as.POSIXlt(fridagur)$wday==1]
 
-  tibble::tibble(
-    serstakurd=c(
+  serstakir <- c(
       as.Date(timeDate::holiday(yyyy,"GoodFriday"))-1,       # Skírdagur
       as.Date(timeDate::holiday(yyyy,"EasterMonday")),       # Annar í páskum
       sumardagur,                                            # Sumardagurinn fyrsti
@@ -18,7 +17,9 @@ serstakir <- function(yyyy)
       as.Date(paste0(yyyy,"-12-25")),                        # Jóladagur
       as.Date(paste0(yyyy,"-12-26")),                        # Annar í jólum
       as.Date(paste0(yyyy,"-12-31"))                         # Gamlársdagur
-    ),
-    spes=1
   )
+ names(serstakir) <- c("Skírdagur","Annar í páskum", "Sumardagurinn fyrsti",
+   "1. maí","Uppstigningardagur","Annar í hvítsunnu","Frídagur verslunarmanna",
+   "Jóladagur","Annar í jólum","Gamlársdagur")
+  serstakir
 }

@@ -1,8 +1,8 @@
-sjopeng <- function(d1,d2,leiguskip=NULL,stada=0,n1=3,spes=NULL,stor=NULL)
+sjopeng <- function(upphaf, endir, stada=0, fjarvist_hefst=3, leiguskip=NULL)
 {
 
-  if(!(status %in% c(0,0.5,1))) stop("ógilt leiðangursstjóraálag")
-  if(!(n1 %in% 1:3)) stop("fjarvistaruppbót byrjar eigi síðar en á 3. degi")
+  if(!(stada %in% c(0,0.5,1))) stop("ógilt leiðangursstjóraálag")
+  if(!(fjarvist_hefst %in% 1:3)) stop("fjarvistaruppbót byrjar eigi síðar en á 3. degi")
 
   yyyy <- year(as.Date(d1))
 
@@ -21,8 +21,14 @@ sjopeng <- function(d1,d2,leiguskip=NULL,stada=0,n1=3,spes=NULL,stor=NULL)
     fjarvist=c(rep(0,n1-1),rep(1,length(daga_sponn)-n1+1))
   )
 
-  stor <- storhatidir(yyyy)
-  spes <- serstatkir(yyyy)
+  stor <- tibble::tibble(
+    hatidisd=storhatidir(yyyy),
+    stor=1
+  )
+  spes <- tibble::tibble(
+    serstakurd=serstakir(yyyy),
+    spes=1
+  )
 
   sjodagar |>
     left_join(stor,join_by(dags==hatidisd)) |>
