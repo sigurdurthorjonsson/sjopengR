@@ -45,7 +45,7 @@
 #' @return Nokkuð stór tafla með forsendum sjópengingareiknings. 
 #' @export
 
-sjopeng <- function(upphaf, endir, leidangursstjorn=0, fjarvist_hefst=3, leiguskip=0)
+sjopeng <- function(upphaf, endir, fjarvist_hefst=3, leidangursstjorn=0, leiguskip=0)
 {
   Sys.getlocale("LC_TIME") -> oldLC_TIME
   Sys.setlocale("LC_TIME","is_IS.UTF-8")
