@@ -1,3 +1,13 @@
+#' Finnur stórhátíðardaga gefins árs.
+#'
+#' Finnur stórhátíðardaga skv kjarasamningi fyrir gefið ár
+# með því að nota fallið 'holiday' í pakkanum 'timeDate'.
+#
+#' @param yyyy Ár.
+#' @return Stórhátíðardagar gefið ár.
+#' @seealso https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf
+#' @export
+
 storhatidir <- function(yyyy)
 {
   hatidir <- c(

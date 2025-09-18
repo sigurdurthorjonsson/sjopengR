@@ -1,3 +1,14 @@
+#' Finnur sérstak frídaga gefins árs.
+#'
+#' Finnur sérstaka frídaga skv kjarasamningi fyrir gefið ár
+#' með því að nota fallið 'holiday' í pakkanum 'timeDate'.
+#' ATH að stórhátíðadögum í upptalningu kjarasamnings er sleppt.
+#
+#' @param yyyy Ár.
+#' @return Stórhátíðardagar gefið ár.
+#' @seealso https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf
+#' @export
+
 serstakir <- function(yyyy)
 {
   sumardagur <- seq(as.Date(paste0(yyyy,"-04-19")),length=7)
