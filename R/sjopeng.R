@@ -40,7 +40,8 @@
 #' Ef stórhátíðardagur fellur á helgi skal greiða sjópeningana (12,92 eða 13,92)
 #' með stórhátíðarkaupi.
 
-#' @references https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf
+#' @references https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf,
+#'   https://www.fin.is/media/samningar/Hafro-2017.pdf
 #' @return Nokkuð stór tafla með forsendum sjópengingareiknings. 
 #' @export
 

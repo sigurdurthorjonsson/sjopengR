@@ -8,7 +8,8 @@
 #' @param tafla Sjópeningatafla, úttak fallsins 'sjopengR::sjopeng'.
 #' @param manadar_laun Sjálfgefið 1, annar hægt að gefa upp kaupið sitt.
 #' @return Yfirlit sjópeninga skipt á launaliði.
-#' @references https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf
+#' @references https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf,
+#'   https://www.fin.is/media/samningar/Hafro-2017.pdf
 #' @export
 
 reikn_sjpng <- function(tafla, manadar_laun=1)
