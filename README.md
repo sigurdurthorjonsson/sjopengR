@@ -1,2 +1,2 @@
 # sjopengR
-Reiknar sjópeninga á Hafró miðað við stofnanasamning og miðlæga kjarsamning FÍN og ríkisins
+Reiknar sjópeninga á Hafró miðað við stofnanasamning og miðlægan kjarsamning FÍN og ríkisins.
