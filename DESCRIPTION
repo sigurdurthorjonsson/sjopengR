@@ -1,0 +1,17 @@
+Package: sjopengR
+Title: Reiknar sjópeningar skv sjókjarasamning Hafró og miðlægum kjarasamningi
+Version: 2025.09.18
+Authors@R: c(
+  person("Sigurður Þór", "Jónsson", , "sigurdur.thor.jonsson@gmail.com", role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0001-5550-0326")),
+  person("Arnþór Bragi", "Kristinsson", role = "aut"))
+Description: Reiknar sjópeningar skv sjókjarasamning Hafró og miðlægum kjarasamningi,
+  með óþæginda-, fjarvista- og leiðangursstjóraálögum, stórhátíðakaupi og helgartaxta
+  á sérstökum frídögum sem fundnir eru um með 'timeDate::holiday'.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: 
+    timeDate,
+    tidyverse

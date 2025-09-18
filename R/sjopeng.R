@@ -3,7 +3,7 @@
 #' Reiknar sjópeninga útfrá spönn daga, helgum og helgidögum skv sjókjarasamning Hafró.
 #' Stuðst er við fallið 'holiday' í pakkanum 'timeDate'.
 #
-#' @param upphaf, endir Upphafs og lokadagur leiðangurs sem ISO-dagsetningar strengur (YYYY-MM-DD).
+#' @param upphaf,endir Upphafs og lokadagur leiðangurs sem ISO-dagsetningar strengur (YYYY-MM-DD).
 #' @param  fjarvist_hefst Dagur í leiðangri sem fjarvistaruppbót byrjar, þriðji dagur ef ekkert hefur verið róið
 #' @param  leidangursstjorn Leiðangurstjóraálag, sjálgefið 0, 0.5 fyrir 1-2 leiðangurmenn, 1 fyrir 4 og fleiri.
 #' @param  leiguskip Er róið á leiguskipi og greitt álag? Sjálgefið 0, en 1/2 tími ef um það er að ræða. 
@@ -54,21 +54,22 @@ sjopeng <- function(upphaf, endir, leidangursstjorn=0, fjarvist_hefst=3, leigusk
   if(!(leiguskip %in% c(0,0.5))) 
     stop("Ef um álag vegna leiðangurs á leiguskipi er að ræða skal það vera 0.5")
 
-  yyyy <- year(as.Date(d1))
+  yyyy <- lubridate::year(as.Date(upphaf))
 
-  daga_sponn <- seq(as.Date(d1), as.Date(d2), by = "1 day")
+  daga_sponn <- seq(as.Date(upphaf), as.Date(endir), by = "1 day")
   vikudagur <- as.POSIXlt(daga_sponn)$wday
   man_fim <- ifelse(vikudagur %in% 1:4, 1, 0)
   fos <- ifelse(vikudagur == 5, 1, 0)
   helgi <- ifelse(vikudagur == 0 | vikudagur == 6, 1, 0)
 
-  sjodagar <- tibble(
+  sjodagar <- tibble::tibble(
     dags = daga_sponn,
     vikudagur = weekdays(dags,abbreviate=TRUE),
     man_fim = man_fim,
     fos = fos,
     helgi = helgi,
-    fjarvist = c(rep(0,n1-1),rep(1,length(daga_sponn)-n1+1))
+    fjarvist = c(rep(0,fjarvist_hefst - 1),
+      rep(1, length(daga_sponn) - fjarvist_hefst + 1))
   )
 
   Sys.setlocale("LC_TIME",oldLC_TIME)
@@ -83,16 +84,16 @@ sjopeng <- function(upphaf, endir, leidangursstjorn=0, fjarvist_hefst=3, leigusk
   )
 
   sjodagar |>
-    left_join(stor,join_by(dags == hatidisd)) |>
-    mutate(stor = ifelse(is.na(stor), 0, stor)) |>
-    left_join(spes, join_by(dags == serstakurd)) |>
-    mutate(spes = ifelse(is.na(spes), 0, spes)) |>
-    mutate(man_fim = ifelse(stor|spes, 0, man_fim),
+    dplyr::left_join(stor,dplyr::join_by(dags == hatidisd)) |>
+    dplyr::mutate(stor = ifelse(is.na(stor), 0, stor)) |>
+    dplyr::left_join(spes, dplyr::join_by(dags == serstakurd)) |>
+    dplyr::mutate(spes = ifelse(is.na(spes), 0, spes)) |>
+    dplyr::mutate(man_fim = ifelse(stor|spes, 0, man_fim),
       fos = ifelse(stor | spes,0,fos),
       helgi = ifelse(stor | spes, 0, helgi)) |>
-    mutate(sjopeningar= 4.92*(man_fim + fos) + 12.92*(helgi + spes + stor) +
+    dplyr::mutate(sjopeningar = 4.92*(man_fim + fos) + 12.92*(helgi + spes + stor) +
         fjarvist + leiguskip + leidangursstjorn,
       oalagI = 3*man_fim,
       oalagII = 3*fos,
-      prosentu_alag=ifelse(stor,1.375,1.0385)
+      prosentu_alag=ifelse(stor, 1.375, 1.0385))
 }
