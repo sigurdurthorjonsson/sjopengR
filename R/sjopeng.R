@@ -64,7 +64,7 @@ sjopeng <- function(upphaf, endir, leidangursstjorn=0, fjarvist_hefst=3, leigusk
 
   sjodagar <- tibble::tibble(
     dags = daga_sponn,
-    vikudagur = weekdays(dags,abbreviate=TRUE),
+    vikudagur = base::weekdays(dags,abbreviate=TRUE),
     man_fim = man_fim,
     fos = fos,
     helgi = helgi,
