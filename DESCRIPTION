@@ -15,3 +15,5 @@ RoxygenNote: 7.3.2
 Depends: 
     timeDate,
     tidyverse
+Suggests: quarto
+VignetteBuilder: quarto

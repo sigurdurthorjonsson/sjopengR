@@ -1,0 +1,201 @@
+---
+title: "`sjopengR`: pakki sem reiknar laun"
+date: 2025-09-18
+date-format: D. MMMM YYYY
+author: 
+  - SJ
+  - ABK
+vignette: >
+  %\VignetteIndexEntry{Your Vignette Title}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Inngangur
+
+Stofnanasamningur FÍN og Hafró hefur verið í gildi óbreyttur frá því 2016. Til að reikna út sjópeninga samkvæmt honum hafa verið í notkun XL-arkir sem taka á þeim þáttum sem taka þarf tillit til við uppgjör leiðangra. Með pakkanum `sjopengR` er sett fram R-fall sem útbýr töflu svipaða þeirri XL-arkirnar byggja á, og mögulega er fyrirhafnarminna að beita fallinu `sjopengR:sjopeng` og reikna svo samtölurnar með `sjopengR:reikn_sjpng`.
+
+# Efni og aðferðir
+
+Fallið `sjopengR:sjopeng` hefur rofana:
+
+- `upphaf` og `endir` Fyrsti og síðasti dagur leiðangurs gefinnn sem ISO-dagsetningarstrengur með sniðinu "YYYY-MM-DD".
+
+- `fjarvist_hefst` Fyrsti dagur leiðangurs sem greiða ber 1 tíma í fjarvistaruppbót. Sjálgefið 3. dagur en getur líka verið 1 eða 2.
+
+- `leidangurstjorn` Sjálfefið 0, en ef leiðangurs menn eru 1 eða 2 fær leiðangrsstjóri 0.5 tíma á dag, en í leiðöngrum með 3 eða fleiri 1 tíma.
+
+- `leiguskip` Sjálfgefið 0, en ef leiðangur er á leiguskipi ber að setja gildið 0.5 tíma sem er umsamið álag í leiðöngrum á skipum öðrum en stofnunarinnar.
+
+R-pakkinn `timeDate`, skjalaður á [](https://geobosh.github.io/timeDateDoc/), er notaður til að finna dagsetningar sérstakra frídaga og stórhátíðardaga sem eru færanlegir, og þeim bætt við dagsetningar fastra frídaga í uppflettitöflu. Spönn dagsetninga leiðangurs er svo borin við frídaga-uppfletti-töfluna.
+
+# Dæmi um sjópeningareikning
+
+Sett er fram notkunardæmi byggt á A12-2025, eða haustloðnu, leiðangrinum þar sem örk ABK var þýdd yfir í R, fyrir tvö launatímabil. Ennfremur dæmi um eldri leiðangur í júní 2024, úthafskarfatúrinn A7-2024 sem náði yfir 17. júní.
+
+## A12-2025
+
+```{r, message=FALSE, warning=FALSE}
+library(sjopengR)
+library(flextable)
+```
+
+Tafla [-@tbl-fyrri] sýnir samtölur sjópeningaeininga í fyrri hluta A12-2025, og tafla [-@tbl-fyrri-laun] sýnir tilsvarandi launaliði.
+
+```{r}
+#| label: tbl-fyrri
+#| tbl-cap: "Sjópeningaeiningar í fyrri hluta A12-2025."
+
+sjopeng("2025-09-05","2025-09-15") -> tbl1
+
+tbl1 |>
+  select(dags,sjopeningar:oalagII) |>
+  summarize(across(sjopeningar:oalagII,sum)) |>
+  flextable() |>
+  set_header_labels(
+    sjopeningar="Sjópeningar",
+    oalagI="Óþægindaálag I",
+    oalagII="Óþægindaálag II"
+  ) |>
+  theme_vanilla()
+```
+
+
+```{r}
+#| label: tbl-fyrri-laun
+#| tbl-cap: "Launaliðirnir 3 fyrir fyrri hluta A12-2025 samanteknir, í mánaðarlaunum."
+
+reikn_sjpng(tbl1) |>
+  flextable() |>
+  set_header_labels(
+    sjopeningar="Sjópeningar",
+    oalagI="Óþægindaálag I",
+    oalagII="Óþægindaálag II",
+    alls="Alls"
+  ) |>
+  colformat_double(digits=3) |>
+  theme_vanilla()
+```
+
+Tafla [-@tbl-seinni] sýnir samtölur sjópeningaeininga í seinni hluta A12-2025, og tafla [-@tbl-seinni-laun] sýnir tilsvarandi launaliði.
+
+
+```{r}
+#| label: tbl-seinni
+#| tbl-cap: "Sjópeningaeiningar í seinni hluta A12-2025."
+
+sjopeng("2025-09-16","2025-09-22",fjarvist_hefst=1) -> tbl2
+
+tbl2 |>
+  select(dags,sjopeningar:oalagII) |>
+  summarize(across(sjopeningar:oalagII,sum)) |>
+  flextable() |>
+  set_header_labels(
+    sjopeningar="Sjópeningar",
+    oalagI="Óþægindaálag I",
+    oalagII="Óþægindaálag II"
+  ) |>
+  theme_vanilla()
+```
+
+
+```{r}
+#| label: tbl-seinni-laun
+#| tbl-cap: "Launaliðirnir 3 fyrir seinni hluta A12-2025 samanteknir, í mánaðarlaunum."
+
+reikn_sjpng(tbl2) |>
+  flextable() |>
+  set_header_labels(
+    sjopeningar="Sjópeningar",
+    oalagI="Óþægindaálag I",
+    oalagII="Óþægindaálag II",
+    alls="Alls"
+  ) |>
+  colformat_double(digits=3) |>
+  theme_vanilla()
+```
+
+Heildarsjópeningaeiningar fyrir leiðangurinn eru gefnar í töflu [-@tbl-alls] og heildarsjópeningar sem hlutfall af mánaðarlaunum í töflu [-@tbl-alls-laun]. Athugið að þetta er fyrir óbreyttan rannsóknamann sem hefur ekki róið áður í mánuðinum.
+
+```{r}
+#| label: tbl-alls
+#| tbl-cap: "Sjópeningareiningar í A12-2025 öllum."
+
+sjopeng("2025-09-05","2025-09-22") -> tbl
+
+tbl |>
+  select(dags,sjopeningar:oalagII) |>
+  summarize(across(sjopeningar:oalagII,sum)) |>
+  flextable() |>
+  set_header_labels(
+    sjopeningar="Sjópeningar",
+    oalagI="Óþægindaálag I",
+    oalagII="Óþægindaálag II"
+  ) |>
+  theme_vanilla()
+```
+
+```{r}
+#| label: tbl-alls-laun
+#| tbl-cap: "Launaliðirnir 3 fyrir A12-2025 allan samanteknir, í mánaðarlaunum ."
+
+reikn_sjpng(tbl) |>
+  flextable() |>
+  set_header_labels(
+    sjopeningar="Sjópeningar",
+    oalagI="Óþægindaálag I",
+    oalagII="Óþægindaálag II"
+  ) |>
+  colformat_double(digits=3) |>
+  theme_vanilla()
+```
+
+## Dagar úr A7-2024 --- þar af einn með stórhátíðarkaupi
+
+Til að veita innsýn í virkni `sjopengR::sjopeng` er gefið dæmi úr úttaki fallsins fyrir rúma viku sem 17. júní bar upp í í júní 2024. Tafla [-@tbl-sjpng1] gefur fyrri hluta dálka töflunnar, með merkingu viku daga og flöggum sem hafa þýðingu við útreikninginn. Tafla [-@tbl-sjpng2] gefur síðar hluta dálkanna, þar sem tínundaðar eru sjópeningaeiningar í samræmi við flögginn og vitanlega stofnanasamninginn. Að lokum er dálkur sem gefur verðgildi yfirvinnutíma hvern dag í einingum mánaðarlauna.
+
+```{r}
+#| label: tbl-sjpng1
+#| tbl-cap: "Fyrstu dálkarnir í úttaki fallsins `sjopeng`."
+
+sjopeng("2024-06-10","2024-06-18",fjarvist_hefst=1) -> tbl
+
+i <- tbl$helgi==1
+i2 <- tbl$stor==1
+
+tbl |>
+  select(dags:spes) |>
+  flextable() |>
+  color(i=i,color="red") |>
+  color(i=i2,color="darkred") |>
+  theme_vanilla()
+```
+
+```{r}
+#| label: tbl-sjpng2
+#| tbl-cap: "Síðustu dálkarnir í úttaki fallsins `sjopeng`."
+
+tbl |>
+  select(dags,sjopeningar:prosentu_alag) |>
+  flextable() |>
+  color(i=i,color="red") |>
+  color(i=i2,color="darkred") |>
+  theme_vanilla()
+
+```
+Niðurstöður töflunnar eru svo teknar saman með fallin `reikn_sjpng` sem gefið er í töflu [-@tbl-reikn-sjpng].
+
+```{r}
+#| label: tbl-reikn-sjpng
+#| tbl-cap: "Fallið `reikn_sjpng`."
+
+reikn_sjpng
+```
+
+
+# Umræða og ályktanir
+
+Með pakkanum `sjopengR` hefur verið útbúið tól til að gera betur ljóst hvað stofnun og launaumsýslu ber að greiða og hvað starfmenn eiga rétt á að fá útborgað eftir sjótúra á vegum stofnunarinnar.
+
+Hægt verður að uppfæra í samræmi við nýjan stofnanasamning um leið og hann lítur dagsins ljós.
+

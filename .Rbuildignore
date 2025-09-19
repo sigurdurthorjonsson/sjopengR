@@ -1,1 +1,4 @@
 ^LICENSE\.md$
+^vignette/*_files$
+^doc$
+^Meta$
