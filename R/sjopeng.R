@@ -48,7 +48,10 @@
 sjopeng <- function(upphaf, endir, fjarvist_hefst=3, leidangursstjorn=0, leiguskip=0)
 {
   Sys.getlocale("LC_TIME") -> oldLC_TIME
-  Sys.setlocale("LC_TIME","is_IS.UTF-8")
+  if(Sys.info()[["sysname"]]=="Windows") 
+    Sys.setlocale("LC_TIME","Icelandic_Iceland.utf8")
+  else
+    Sys.setlocale("LC_TIME","is_IS.UTF-8")
 
   if(!(leidangursstjorn %in% c(0,0.5,1))) stop("ógilt leiðangursstjóraálag")
   if(!(fjarvist_hefst %in% 1:3)) stop("fjarvistaruppbót byrjar eigi síðar en á 3. degi")

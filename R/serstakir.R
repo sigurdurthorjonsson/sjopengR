@@ -11,10 +11,10 @@
 
 serstakir <- function(yyyy)
 {
-  sumardagur <- seq(as.Date(paste0(yyyy,"-04-19")),length=7)
+  sumardagur <- seq(from=as.Date(paste0(yyyy,"-04-19")), by="1 day", length=7)
   sumardagur <- sumardagur[as.POSIXlt(sumardagur)$wday==4]
 
-  fridagur <- seq(as.Date(paste0(yyyy,"-08-01")),length=7)
+  fridagur <- seq(from=as.Date(paste0(yyyy,"-08-01")), by="1 day", length=7)
   fridagur <- fridagur[as.POSIXlt(fridagur)$wday==1]
 
   serstakir <- c(
