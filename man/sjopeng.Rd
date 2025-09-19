@@ -4,14 +4,14 @@
 \alias{sjopeng}
 \title{Reiknar sjópeninga útfrá spönn daga og fleiri þáttum.}
 \usage{
-sjopeng(upphaf, endir, leidangursstjorn = 0, fjarvist_hefst = 3, leiguskip = 0)
+sjopeng(upphaf, endir, fjarvist_hefst = 3, leidangursstjorn = 0, leiguskip = 0)
 }
 \arguments{
 \item{upphaf, endir}{Upphafs og lokadagur leiðangurs sem ISO-dagsetningar strengur (YYYY-MM-DD).}
 
-\item{leidangursstjorn}{Leiðangurstjóraálag, sjálgefið 0, 0.5 fyrir 1-2 leiðangurmenn, 1 fyrir 4 og fleiri.}
-
 \item{fjarvist_hefst}{Dagur í leiðangri sem fjarvistaruppbót byrjar, þriðji dagur ef ekkert hefur verið róið}
+
+\item{leidangursstjorn}{Leiðangurstjóraálag, sjálgefið 0, 0.5 fyrir 1-2 leiðangurmenn, 1 fyrir 4 og fleiri.}
 
 \item{leiguskip}{Er róið á leiguskipi og greitt álag? Sjálgefið 0, en 1/2 tími ef um það er að ræða.}
 }
@@ -36,7 +36,7 @@ Sjópeningar - helgar: 12,92 fyrstu tvo dagana og síðan 13,92 með fjarvistaru
 Fjarvistaruppbót er 1 klst. pr. dag frá og með 3. degi samfelldrar fjarvistar,
 eða frá og með 6. fjarvistardegi í hverjum almanaksmánuði.
 
-Óþægindaálag I (33\%) - 3 klst. á dag mánudaga til fimmtudaga.
+Óþægindaálag I (33.33\%) - 3 klst. á dag mánudaga til fimmtudaga.
 
 Óþægindaálag II (55\%) - 3 klst. á dag á föstudögum.
 
@@ -57,5 +57,6 @@ Ef stórhátíðardagur fellur á helgi skal greiða sjópeningana (12,92 eða 1
 með stórhátíðarkaupi.
 }
 \references{
-https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf
+https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf,
+https://www.fin.is/media/samningar/Hafro-2017.pdf
 }

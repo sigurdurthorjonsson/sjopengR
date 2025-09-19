@@ -20,7 +20,7 @@
 #' Fjarvistaruppbót er 1 klst. pr. dag frá og með 3. degi samfelldrar fjarvistar,
 #' eða frá og með 6. fjarvistardegi í hverjum almanaksmánuði.
 #'
-#' Óþægindaálag I (33%) - 3 klst. á dag mánudaga til fimmtudaga.
+#' Óþægindaálag I (33.33%) - 3 klst. á dag mánudaga til fimmtudaga.
 #'
 #' Óþægindaálag II (55%) - 3 klst. á dag á föstudögum.
 #'

@@ -16,10 +16,10 @@ Yfirlit sjópeninga skipt á launaliði.
 }
 \description{
 Reiknar sjópeningar útfrá forsendum í töflu, í einingum mánaðarlauna,
-eða í krónum ef grunnlaun eru gefin
+eða í krónum ef grunnlaun eru gefin,
 með því að nota fallið 'holiday' í pakkanum 'timeDate'.
-ATH að stórhátíðadögum í upptalningu kjarasamnings er sleppt.
 }
 \references{
-https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf
+https://www.fin.is/media/samningar/Kjarasamningur-FIN-og-rikis-28.februar-2018.pdf,
+https://www.fin.is/media/samningar/Hafro-2017.pdf
 }

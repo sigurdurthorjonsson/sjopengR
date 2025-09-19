@@ -1,9 +1,8 @@
 #' Reiknar sjópeningar útfrá forsendum í töflu.
 #'
 #' Reiknar sjópeningar útfrá forsendum í töflu, í einingum mánaðarlauna, 
-#' eða í krónum ef grunnlaun eru gefin  
+#' eða í krónum ef grunnlaun eru gefin, 
 #' með því að nota fallið 'holiday' í pakkanum 'timeDate'.
-#' ATH að stórhátíðadögum í upptalningu kjarasamnings er sleppt.
 #
 #' @param tafla Sjópeningatafla, úttak fallsins 'sjopengR::sjopeng'.
 #' @param manadar_laun Sjálfgefið 1, annar hægt að gefa upp kaupið sitt.
