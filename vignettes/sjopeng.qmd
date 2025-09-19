@@ -1,9 +1,9 @@
 ---
-title: "`sjopengR`: pakki sem reiknar laun"
+title: "`sjopengR`: pakki til að reikna út sjópeninga fyrir leiðangra Hafró"
 date: 2025-09-18
 date-format: D. MMMM YYYY
 author: 
-  - SJ
+  - SÞJ
   - ABK
 vignette: >
   %\VignetteIndexEntry{Your Vignette Title}
