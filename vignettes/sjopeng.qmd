@@ -84,7 +84,7 @@ Tafla [-@tbl-seinni] sýnir samtölur sjópeningaeininga í seinni hluta A12-202
 #| label: tbl-seinni
 #| tbl-cap: "Sjópeningaeiningar í seinni hluta A12-2025."
 
-sjopeng("2025-09-16","2025-09-21",fjarvist_hefst=1) -> tbl2
+sjopeng("2025-09-16","2025-09-22",fjarvist_hefst=1) -> tbl2
 
 tbl2 |>
   select(dags,sjopeningar:oalagII) |>
@@ -121,7 +121,7 @@ Heildarsjópeningaeiningar fyrir leiðangurinn eru gefnar í töflu [-@tbl-alls]
 #| label: tbl-alls
 #| tbl-cap: "Sjópeningareiningar í A12-2025 öllum."
 
-sjopeng("2025-09-05","2025-09-21") -> tbl
+sjopeng("2025-09-05","2025-09-22") -> tbl
 
 tbl |>
   select(dags,sjopeningar:oalagII) |>
