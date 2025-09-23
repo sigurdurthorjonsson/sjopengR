@@ -6,7 +6,7 @@ author:
   - SÞJ
   - ABK
 vignette: >
-  %\VignetteIndexEntry{Your Vignette Title}
+  %\VignetteIndexEntry{"`sjopengR`: pakki til að reikna út sjópeninga fyrir leiðangra Hafró"}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
