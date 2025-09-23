@@ -1,6 +1,6 @@
 ---
 title: "`sjopengR`: pakki til að reikna út sjópeninga fyrir leiðangra Hafró"
-date: 2025-09-18
+date: 2025-09-23
 date-format: D. MMMM YYYY
 author: 
   - SÞJ
@@ -13,7 +13,7 @@ vignette: >
 
 # Inngangur
 
-Stofnanasamningur FÍN og Hafró hefur verið í gildi óbreyttur frá því 2016. Til að reikna út sjópeninga samkvæmt honum hafa verið í notkun XL-arkir sem taka á þeim þáttum sem taka þarf tillit til við uppgjör leiðangra. Með pakkanum `sjopengR` er sett fram R-fall sem útbýr töflu svipaða þeirri XL-arkirnar byggja á, og mögulega er fyrirhafnarminna að beita fallinu `sjopengR:sjopeng` og reikna svo samtölurnar með `sjopengR:reikn_sjpng`.
+Stofnanasamningur FÍN og Hafró hefur verið í gildi óbreyttur frá því 2016. Til að reikna út sjópeninga samkvæmt honum hafa verið í notkun XL-arkir sem taka á þeim þáttum sem taka þarf tillit til við uppgjör leiðangra. Með pakkanum `sjopengR` er sett fram R-fall sem útbýr töflu svipaða þeirri XL-arkirnar byggja á, og mögulega er fyrirhafnarminna að beita fallinu `sjopengR:sjopeng` og reikna svo samtölur annars vegar í yfirvinnutímum með `sjopengR:reikn_einingar` og hins vegar með sem hlutfall af mánaðarlaunum eða í krónum með `sjopengR:reikn_sjpng`.
 
 # Efni og aðferðir
 
@@ -49,14 +49,8 @@ Tafla [-@tbl-fyrri] sýnir samtölur sjópeningaeininga í fyrri hluta A12-2025,
 sjopeng("2025-09-05","2025-09-15") -> tbl1
 
 tbl1 |>
-  select(dags,sjopeningar:oalagII) |>
-  summarize(across(sjopeningar:oalagII,sum)) |>
+  reikn_einingar() |>
   flextable() |>
-  set_header_labels(
-    sjopeningar="Sjópeningar",
-    oalagI="Óþægindaálag I",
-    oalagII="Óþægindaálag II"
-  ) |>
   theme_vanilla()
 ```
 
@@ -87,14 +81,8 @@ Tafla [-@tbl-seinni] sýnir samtölur sjópeningaeininga í seinni hluta A12-202
 sjopeng("2025-09-16","2025-09-22",fjarvist_hefst=1) -> tbl2
 
 tbl2 |>
-  select(dags,sjopeningar:oalagII) |>
-  summarize(across(sjopeningar:oalagII,sum)) |>
+  reikn_einingar() |>
   flextable() |>
-  set_header_labels(
-    sjopeningar="Sjópeningar",
-    oalagI="Óþægindaálag I",
-    oalagII="Óþægindaálag II"
-  ) |>
   theme_vanilla()
 ```
 
@@ -124,14 +112,8 @@ Heildarsjópeningaeiningar fyrir leiðangurinn eru gefnar í töflu [-@tbl-alls]
 sjopeng("2025-09-05","2025-09-22") -> tbl
 
 tbl |>
-  select(dags,sjopeningar:oalagII) |>
-  summarize(across(sjopeningar:oalagII,sum)) |>
+  reikn_einingar() |>
   flextable() |>
-  set_header_labels(
-    sjopeningar="Sjópeningar",
-    oalagI="Óþægindaálag I",
-    oalagII="Óþægindaálag II"
-  ) |>
   theme_vanilla()
 ```
 
